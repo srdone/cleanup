@@ -7,7 +7,8 @@
 require(data.table)
 
 cleanup <- function(table_to_clean, columns_to_keep) {
-	table_to_clean <- table_to_clean[, columns_to_keep]
+	columns_to_keep <- substitute(columns_to_keep)
+	table_to_clean <- table_to_clean[, eval(columns_to_keep)]
 	setkey(table_to_clean, NULL)
 	cleanedTable <- table_to_clean[, unique(table_to_clean)]
 	return(cleanedTable)
